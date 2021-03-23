@@ -19,8 +19,6 @@ const bot = new TelegramBot(token, { polling: true, webHook: {port: port, host: 
 
 bot.setWebHook(`${host}:${port}/bot${token}`);
 
-setInterval(() => bot.sendMessage(process.env.ADMIN_ID, 'I am alive on Heroku'), 1000);
-
 bot.on("callback_query", async (query) => {
   const chatId = query.message.chat.id;
   console.log(chatId);
