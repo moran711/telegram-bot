@@ -10,10 +10,20 @@ connectDB();
 
 const token = process.env.BOT_TOKEN;
 
-const bot = new TelegramBot(token, { polling: true });
+const port = process.env.PORT || 8443;
+const host = process.env.HOST || 'http://localhost';
+
+
+
+const bot = new TelegramBot(token, { polling: true, webHook: {port: port, host: host }});
+
+bot.setWebHook(`${host}:${port}/bot${token}`);
+
+setInterval(() => bot.sendMessage(process.env.ADMIN_ID, 'I am alive on Heroku'), 1000);
 
 bot.on("callback_query", async (query) => {
   const chatId = query.message.chat.id;
+  console.log(chatId);
   const selectedItem = query.data;
   if (await instituteController.getInstituteById(selectedItem)) {
     const cathedras = await cathedraController.getAllCathedras({
