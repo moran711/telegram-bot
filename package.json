@@ -1,0 +1,19 @@
+{
+  "name": "schedule-nulp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "mongoose": "^5.12.2",
+    "node-telegram-bot-api": "0.51.0",
+    "nodemon": "^2.0.7",
+    "slimbot": "^5.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
