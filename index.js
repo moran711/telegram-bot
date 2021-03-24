@@ -13,7 +13,7 @@ const token = process.env.BOT_TOKEN;
 const port = process.env.PORT || 8443;
 const host = process.env.HOST || 'http://localhost';
 
-
+console.log(process.env)
 
 const bot = new TelegramBot(token, { polling: true, webHook: {port: port, host: host }});
 
