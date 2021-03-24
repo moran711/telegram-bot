@@ -5,6 +5,14 @@ const cathedraController = require("./controllers/cathedra.controller");
 const groupController = require("./controllers/group.controller");
 const instituteController = require("./controllers/institute.controller");
 const formatDataForKeyboard = require("./helpers/formatDataForKeyboard");
+const express = require('express')
+const app = express()
+ 
+app.get('/', function (req, res) {
+  res.send('Hello man!')
+})
+ 
+app.listen(process.env.PORT);
 
 connectDB();
 
