@@ -1,5 +1,5 @@
-const userService = require('../services/user.service.js');
-const {LoadDataError} = require('../errors');
+const userService = require("../services/user.service.js");
+const { LoadDataError } = require("../errors");
 
 class UserController {
   async addUser(user) {

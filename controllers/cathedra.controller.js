@@ -1,5 +1,5 @@
-const cathedraService = require('../services/cathedra.service.js');
-const {LoadDataError} = require('../errors');
+const cathedraService = require("../services/cathedra.service.js");
+const { LoadDataError } = require("../errors");
 
 class CathedraController {
   async addCathedra(cathedra) {
@@ -33,7 +33,7 @@ class CathedraController {
     return cathedra;
   }
   async getAllCathedras(query) {
-    return await cathedraService.getAllCathedras(query)
+    return await cathedraService.getAllCathedras(query);
   }
 }
 module.exports = new CathedraController();

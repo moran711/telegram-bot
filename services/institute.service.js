@@ -1,10 +1,9 @@
 const instituteModel = require("../models/institute.model");
 
-
 class InstituteService {
   async addInstitute(data) {
     const institute = new instituteModel({
-      ...data
+      ...data,
     });
     return await institute.save();
   }
@@ -12,10 +11,10 @@ class InstituteService {
     return instituteModel.findByIdAndUpdate(id, data, { new: true });
   }
   async deleteInstitute(id) {
-    return await instituteModel.findByIdAndDelete(id).exec()
-  } 
+    return await instituteModel.findByIdAndDelete(id).exec();
+  }
   async getInstituteById(_id) {
-    return await instituteModel.findOne({_id}).exec();
+    return await instituteModel.findOne({ _id }).exec();
   }
   async getAllInstitutes() {
     return await instituteModel.find();

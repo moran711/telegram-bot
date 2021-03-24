@@ -5,77 +5,118 @@ const cathedraController = require("./controllers/cathedra.controller");
 const groupController = require("./controllers/group.controller");
 const instituteController = require("./controllers/institute.controller");
 const formatDataForKeyboard = require("./helpers/formatDataForKeyboard");
-const express = require('express')
-const app = express()
- 
-app.get('/', function (req, res) {
-  res.send('Hello man!')
-})
- 
+const express = require("express");
+const sceduleConsroller = require("./controllers/scedule.consroller");
+const app = express();
+
+app.get("/", function (req, res) {
+  res.send("Hello man!");
+});
+
 app.listen(process.env.PORT);
+try {
+  connectDB();
+  //  sceduleConsroller.addScedule({group: '605a3fa59ce29b214c1deb4e', forWeek: [{uri: 'https://bottender.js.org/docs/en/channel-telegram-sending-messages', teacher: 'Тімоха', subject: "Вода", number: "1"}]})
+  const token = process.env.BOT_TOKEN;
 
-connectDB();
+  const port = process.env.PORT || 8443;
+  const host =
+    process.env.NODE_ENV === "production"
+      ? process.env.HOST
+      : "http://localhost";
 
-const token = process.env.BOT_TOKEN;
+  const botOptions = {
+    polling: !(process.env.NODE_ENV === "production"),
+    webHook:
+      process.env.NODE_ENV === "production"
+        ? {
+            port,
+            host,
+          }
+        : null,
+  };
 
-const port = process.env.PORT || 8443;
-const host =
-  process.env.NODE_ENV === "production" ? process.env.HOST : "http://localhost";
+  const bot = new TelegramBot(token, botOptions);
 
-const botOptions = {
-  polling: process.env.NODE_ENV === "production",
-  webHook: {
-    port: process.env.NODE_ENV === "production" ? port : null,
-    host: process.env.NODE_ENV === "production" ? host : null,
-  },
-};
+  if (process.env.NODE_ENV === "production")
+    bot.setWebHook(`${host}:${port}/bot${token}`);
 
-const bot = new TelegramBot(token, botOptions);
+  bot.on("callback_query", async (query) => {
+    const chatId = query.message.chat.id;
+    console.log(chatId);
+    const selectedItem = query.data;
+    if (await instituteController.getInstituteById(selectedItem)) {
+      const cathedras = await cathedraController.getAllCathedras({
+        institute: selectedItem,
+      });
+      cathedras.length
+        ? bot.sendMessage(chatId, "Вибери із списку свою кафедру", {
+            reply_markup: {
+              inline_keyboard: formatDataForKeyboard(cathedras),
+            },
+          })
+        : bot.sendMessage(chatId, "Для вибраного інституту поки немає кафедри");
+    } else if (await cathedraController.getCathedraById(selectedItem)) {
+      const groups = await groupController.getAllGroups({
+        cathedra: selectedItem,
+      });
+      groups.length
+        ? bot.sendMessage(chatId, "Вибери із списку свою групу", {
+            reply_markup: {
+              inline_keyboard: formatDataForKeyboard(groups),
+            },
+          })
+        : bot.sendMessage(chatId, "Для вибраної кафедри поки немає групи");
+    } else if (await groupController.getGroupById(selectedItem)) {
+      const scedule = await sceduleConsroller.getAllScedules({
+        group: selectedItem,
+      });
 
-if (process.env.NODE_ENV === "production")
-  bot.setWebHook(`${host}:${port}/bot${token}`);
+      scedule.length
+        ? scedule[0].forWeek.map((el) =>
+            bot.sendMessage(
+              chatId,
+              `
+    Ваш викладач: ${el.teacher}
+    Ваш предмет: ${el.subject}
+    Номер пари: ${el.number}
+  `,
+              {
+                reply_markup: {
+                  inline_keyboard: [
+                    [
+                      {
+                        text: "Посилання на пару",
+                        url: el.uri,
+                      },
+                    ],
+                  ],
+                },
+              }
+            )
+          )
+        : bot.sendMessage(chatId, "Розкладу для групи поки немає");
+    }
+  });
 
-bot.on("callback_query", async (query) => {
-  const chatId = query.message.chat.id;
-  console.log(chatId);
-  const selectedItem = query.data;
-  if (await instituteController.getInstituteById(selectedItem)) {
-    const cathedras = await cathedraController.getAllCathedras({
-      institute: selectedItem,
-    });
-    cathedras.length
-      ? bot.sendMessage(chatId, "Вибери із списку свою кафедру", {
+  bot.onText(/\/get_scedule/, async (msg) => {
+    const chatId = msg.chat.id;
+    const institutes = await instituteController.getAllInstitutes();
+    institutes.length
+      ? bot.sendMessage(chatId, "Вибери із списку свій інститут", {
           reply_markup: {
-            inline_keyboard: formatDataForKeyboard(cathedras),
+            inline_keyboard: formatDataForKeyboard(institutes),
           },
         })
-      : bot.sendMessage(chatId, "Для вибраного інституту поки немає кафедри");
-  } else if (await cathedraController.getCathedraById(selectedItem)) {
-    const groups = await groupController.getAllGroups({
-      cathedra: selectedItem,
-    });
-    groups.length
-      ? bot.sendMessage(chatId, "Вибери із списку свою групу", {
-          reply_markup: {
-            inline_keyboard: formatDataForKeyboard(groups),
-          },
-        })
-      : bot.sendMessage(chatId, "Для вибраної кафедри поки немає групи");
-  } else if (await groupController.getGroupById(selectedItem)) {
-    bot.sendMessage(chatId, "Розкладу для групи поки немає");
-  }
-});
+      : bot.sendMessage(chatId, "Інститутів поки немає");
+  });
 
-bot.onText(/\/get_scedule/, async (msg) => {
-  const chatId = msg.chat.id;
-  const institutes = await instituteController.getAllInstitutes();
-  institutes.length
-    ? bot.sendMessage(chatId, "Вибери із списку свій інститут", {
-        reply_markup: {
-          inline_keyboard: formatDataForKeyboard(institutes),
-        },
-      })
-    : bot.sendMessage(chatId, "Інститутів поки немає");
-});
+  bot.on("message", (msg) => {
+    const chatId = msg.chat.id;
+    bot.sendMessage(chatId, JSON.stringify(msg));
+  });
 
-bot.on("polling_error", (err) => console.log(err));
+  bot.on("polling_error", (err) => console.log(err));
+} catch (e) {
+  console.error(e.message);
+}

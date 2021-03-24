@@ -1,16 +1,16 @@
-
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const cathedraSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
   },
-  value: String,
+  value: { require: true, type: String },
   institute: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Institute',
-  }
+    ref: "Institute",
+    require: true,
+  },
 });
 
-module.exports = mongoose.model('Cathedra', cathedraSchema);
+module.exports = mongoose.model("Cathedra", cathedraSchema);

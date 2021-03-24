@@ -1,5 +1,5 @@
-const instituteService = require('../services/institute.service.js');
-const {LoadDataError} = require('../errors');
+const instituteService = require("../services/institute.service.js");
+const { LoadDataError } = require("../errors");
 
 class InstituteController {
   async addInstitute(institute) {
