@@ -20,7 +20,9 @@ const port = process.env.PORT || 8443;
 // const host =
 //   process.env.NODE_ENV === "production" ? process.env.HOST : "http://localhost";
 console.log(process.env.PORT);
-  app.listen(port);
+  app.listen(port, () => {
+    console.log(`server listen on port ${port}`);
+  });
 
 // const botOptions = {
 //   polling: !(process.env.NODE_ENV === "production"),
