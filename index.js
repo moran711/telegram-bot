@@ -12,27 +12,20 @@ const app = express();
 app.get("/", function (req, res) {
   res.send("Hello man!");
 });
-
+process.env.NODE_ENV = 'production'
 connectDB();
 const token = process.env.BOT_TOKEN;
 
 const port = process.env.PORT || 8443;
 const host =
   process.env.NODE_ENV === "production" ? process.env.HOST : "http://localhost";
-console.log(process.env.PORT);
+
   app.listen(port, () => {
     console.log(`server listen on port ${port}`);
   });
 
 const botOptions = {
-  polling: process.env.NODE_ENV !== "production",
-  webHook:
-    process.env.NODE_ENV === "production"
-      ? {
-          port,
-          host,
-        }
-      : null,
+  polling: process.env.NODE_ENV !== "production"
 };
 
 const bot = new TelegramBot(token, botOptions);
