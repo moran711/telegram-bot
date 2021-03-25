@@ -12,7 +12,7 @@ const app = express();
 app.get("/", function (req, res) {
   res.send("Hello man!");
 });
-process.env.NODE_ENV = 'production'
+
 connectDB();
 const token = process.env.BOT_TOKEN;
 
@@ -27,7 +27,7 @@ const host =
 const botOptions = {
   polling: process.env.NODE_ENV !== "production"
 };
-
+console.log(botOptions);
 const bot = new TelegramBot(token, botOptions);
 
 if (process.env.NODE_ENV === "production")
