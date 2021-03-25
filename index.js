@@ -13,8 +13,6 @@ app.get("/", function (req, res) {
   res.send("Hello man!");
 });
 
-app.listen(process.env.PORT);
-
 connectDB();
 //  sceduleConsroller.addScedule({group: '605a3fa59ce29b214c1deb4e', forWeek: [{uri: 'https://bottender.js.org/docs/en/channel-telegram-sending-messages', teacher: 'Тімоха', subject: "Вода", number: "1"}]})
 const token = process.env.BOT_TOKEN;
@@ -22,6 +20,8 @@ const token = process.env.BOT_TOKEN;
 const port = process.env.PORT || 8443;
 const host =
   process.env.NODE_ENV === "production" ? process.env.HOST : "http://localhost";
+
+  app.listen(port);
 
 const botOptions = {
   polling: !(process.env.NODE_ENV === "production"),
