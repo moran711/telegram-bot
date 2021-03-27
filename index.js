@@ -29,7 +29,7 @@ const botOptions = {
 };
 const bot = new TelegramBot(token, botOptions);
 app.post('/' + token, function (req, res) {
-  console.log(JSON.stringify(req);
+  console.log(JSON.stringify(req));
   bot.processUpdate(req.body);
   res.sendStatus(200);
 });
