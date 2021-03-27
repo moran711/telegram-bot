@@ -1,21 +1,23 @@
 require("dotenv").config();
 const TelegramBot = require("node-telegram-bot-api");
+const express = require("express");
 const connectDB = require("./connectDB");
 const cathedraController = require("./controllers/cathedra.controller");
 const groupController = require("./controllers/group.controller");
 const instituteController = require("./controllers/institute.controller");
 const formatDataForKeyboard = require("./helpers/formatDataForKeyboard");
-const express = require("express");
-// const sceduleConsroller = require("./controllers/scedule.consroller");
+const sceduleConsroller = require("./controllers/scedule.consroller");
+
 const app = express();
+app.use(bodyParser.json());
 
 app.get("/", function (req, res) {
   res.send("Hello man!");
 });
 
 connectDB();
-const token = process.env.BOT_TOKEN;
 
+const token = process.env.BOT_TOKEN;
 const port = process.env.PORT || 8443;
 const host =
   process.env.NODE_ENV === "production" ? process.env.HOST : "http://localhost";
@@ -23,19 +25,19 @@ const host =
   app.listen(port, () => {
     console.log(`server listen on port ${port}`);
   });
-
 const botOptions = {
   polling: process.env.NODE_ENV !== "production"
 };
 const bot = new TelegramBot(token, botOptions);
-app.post('/' + host.split('/').pop() + token, function (req, res) {
-  console.log(req.body);
+
+app.post('/' + bot.token, (req, res) => {
   bot.processUpdate(req.body);
   res.sendStatus(200);
 });
+
 if (process.env.NODE_ENV === "production")
   bot.setWebHook(`${host}${token}`);
-console.log(`${host}${token}`);
+
 bot.on("callback_query", async (query) => {
   const chatId = query.message.chat.id;
   console.log(chatId);
