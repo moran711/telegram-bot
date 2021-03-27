@@ -7,14 +7,6 @@ const days = {
 };
 
 const formatDaysForKeyboard = (sceduleId) => {
-  console.log(
-    Object.keys(days).map((day) => [
-      {
-        text: days[day],
-        callback_data: `${day} ${sceduleId}`,
-      },
-    ])
-  );
   return Object.keys(days).map((day) => [
     {
       text: days[day],
