@@ -7,7 +7,7 @@ const groupController = require("./controllers/group.controller");
 const instituteController = require("./controllers/institute.controller");
 const formatDataForKeyboard = require("./helpers/formatDataForKeyboard");
 const sceduleConsroller = require("./controllers/scedule.consroller");
-
+const bodyParser = require("body-parser");
 const app = express();
 app.use(bodyParser.json());
 
