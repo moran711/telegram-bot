@@ -34,7 +34,7 @@ app.post('/' + token, function (req, res) {
 });
 if (process.env.NODE_ENV === "production")
   bot.setWebHook(`${host}${token}`);
-
+console.log(`${host}${token});
 bot.on("callback_query", async (query) => {
   const chatId = query.message.chat.id;
   console.log(chatId);
