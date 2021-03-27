@@ -1,5 +1,4 @@
 const cathedraService = require("../services/cathedra.service.js");
-const { LoadDataError } = require("../errors");
 
 class CathedraController {
   async addCathedra(cathedra) {

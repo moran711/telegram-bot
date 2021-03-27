@@ -1,5 +1,4 @@
 const groupService = require("../services/group.service.js");
-const { LoadDataError } = require("../errors");
 
 class GroupController {
   async addGroup(group) {
