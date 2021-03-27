@@ -28,7 +28,7 @@ const botOptions = {
   polling: process.env.NODE_ENV !== "production"
 };
 const bot = new TelegramBot(token, botOptions);
-app.post('/' + token, function (req, res) {
+app.post('/' + host.split('/').pop() + token, function (req, res) {
   console.log(req.body);
   bot.processUpdate(req.body);
   res.sendStatus(200);
