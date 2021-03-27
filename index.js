@@ -30,7 +30,7 @@ const botOptions = {
 const bot = new TelegramBot(token, botOptions);
 
 if (process.env.NODE_ENV === "production")
-  bot.setWebHook(`${host.substring(0, host.length - 1)}:${port}/bot${token}`);
+  bot.setWebHook(`/${token}`);
 
 bot.on("callback_query", async (query) => {
   const chatId = query.message.chat.id;
