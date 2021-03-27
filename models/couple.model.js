@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const coupleSchema = new mongoose.Schema({
   uri: { require: true, type: String },
@@ -7,4 +7,4 @@ const coupleSchema = new mongoose.Schema({
   couple: { require: true, type: Number },
 });
 
-module.exports = mongoose.model("Couple", coupleSchema);
+module.exports = mongoose.model('Couple', coupleSchema);

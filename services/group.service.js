@@ -1,4 +1,4 @@
-const groupModel = require("../models/group.model");
+const groupModel = require('../models/group.model');
 
 class GroupService {
   async addGroup(data) {

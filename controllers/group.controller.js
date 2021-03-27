@@ -1,4 +1,4 @@
-const groupService = require("../services/group.service.js");
+const groupService = require('../services/group.service.js');
 
 class GroupController {
   async addGroup(group) {

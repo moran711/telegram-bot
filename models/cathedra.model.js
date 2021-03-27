@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const cathedraSchema = new mongoose.Schema({
   createdAt: {
@@ -8,9 +8,9 @@ const cathedraSchema = new mongoose.Schema({
   value: { require: true, type: String },
   institute: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Institute",
+    ref: 'Institute',
     require: true,
   },
 });
 
-module.exports = mongoose.model("Cathedra", cathedraSchema);
+module.exports = mongoose.model('Cathedra', cathedraSchema);

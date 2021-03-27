@@ -1,4 +1,4 @@
-const cathedraModel = require("../models/cathedra.model");
+const cathedraModel = require('../models/cathedra.model');
 
 class CathedraService {
   async addCathedra(data) {

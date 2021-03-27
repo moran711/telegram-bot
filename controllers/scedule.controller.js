@@ -1,4 +1,4 @@
-const sceduleService = require("../services/scedule.service.js");
+const sceduleService = require('../services/scedule.service.js');
 
 class SceduleController {
   async addScedule(scedule) {

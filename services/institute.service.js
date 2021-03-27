@@ -1,4 +1,4 @@
-const instituteModel = require("../models/institute.model");
+const instituteModel = require('../models/institute.model');
 
 class InstituteService {
   async addInstitute(data) {

@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Couple = require("./couple.model").schema;
+const mongoose = require('mongoose');
+const Couple = require('./couple.model').schema;
 
 const sceduleSchema = new mongoose.Schema({
   createdAt: {
@@ -15,9 +15,9 @@ const sceduleSchema = new mongoose.Schema({
   },
   group: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Group",
+    ref: 'Group',
     require: true,
   },
 });
 
-module.exports = mongoose.model("Scedule", sceduleSchema);
+module.exports = mongoose.model('Scedule', sceduleSchema);

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const groupSchema = new mongoose.Schema({
   createdAt: {
@@ -8,9 +8,9 @@ const groupSchema = new mongoose.Schema({
   value: { require: true, type: String },
   cathedra: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Cathedra",
+    ref: 'Cathedra',
     require: true,
   },
 });
 
-module.exports = mongoose.model("Group", groupSchema);
+module.exports = mongoose.model('Group', groupSchema);

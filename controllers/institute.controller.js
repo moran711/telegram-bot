@@ -1,4 +1,4 @@
-const instituteService = require("../services/institute.service.js");
+const instituteService = require('../services/institute.service.js');
 class InstituteController {
   async addInstitute(institute) {
     return instituteService.addInstitute(institute);

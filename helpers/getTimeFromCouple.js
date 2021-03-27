@@ -6,9 +6,9 @@ const timeOfCouples = {
   5: '16:00-17:35',
   6: '17:40-19:15',
   7: '19:20-20:55',
-  8: '21:00-22:35'
-}
+  8: '21:00-22:35',
+};
 
-const getTimeFromCouple = (couple) => timeOfCouples[couple]
+const getTimeFromCouple = (couple) => timeOfCouples[couple];
 
 module.exports = getTimeFromCouple;

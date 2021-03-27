@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const instituteSchema = new mongoose.Schema({
   createdAt: {
@@ -8,4 +8,4 @@ const instituteSchema = new mongoose.Schema({
   value: { require: true, type: String },
 });
 
-module.exports = mongoose.model("Institute", instituteSchema);
+module.exports = mongoose.model('Institute', instituteSchema);
