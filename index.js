@@ -36,7 +36,7 @@ app.post('/' + bot.token, (req, res) => {
 });
 
 if (process.env.NODE_ENV === "production")
-  bot.setWebHook(`${host}${token}`);
+  bot.setWebHook(process.env.HEROKU_URL + bot.token);
 
 bot.on("callback_query", async (query) => {
   const chatId = query.message.chat.id;
