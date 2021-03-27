@@ -27,7 +27,7 @@ const host =
 const botOptions = {
   polling: process.env.NODE_ENV !== "production"
 };
-console.log(botOptions);
+console.log(`${host}:${port}/bot${token}`);
 const bot = new TelegramBot(token, botOptions);
 
 if (process.env.NODE_ENV === "production")
