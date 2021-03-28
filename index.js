@@ -21,7 +21,7 @@ const port = process.env.PORT || 8443;
 
 const requestUri =
   process.env.NODE_ENV === 'production'
-    ? process.env.HEROKU_URL
+    ? process.env.HEROKU_URL.substring(0, process.env.HEROKU_URL.length - 1)
     : `http://localhost:${port}`;
 
 const botOptions = {
