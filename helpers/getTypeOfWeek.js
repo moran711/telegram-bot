@@ -8,4 +8,4 @@ const getTypeOfWeek = () => {
     : 'denominator';
 };
 
-module.exports = getTypeOfWeek();
+module.exports = getTypeOfWeek;

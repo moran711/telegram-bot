@@ -7,11 +7,66 @@ const sceduleSchema = new mongoose.Schema({
     default: Date.now,
   },
   week: {
-    mon: { denominator: [Couple], numerator: [Couple] },
-    tue: { denominator: [Couple], numerator: [Couple] },
-    wed: { denominator: [Couple], numerator: [Couple] },
-    thu: { denominator: [Couple], numerator: [Couple] },
-    fri: { denominator: [Couple], numerator: [Couple] },
+    mon: {
+      denominator: {
+        subgroup1: [Couple],
+        subgroup2: [Couple],
+        general: [Couple],
+      },
+      numerator: {
+        subgroup1: [Couple],
+        subgroup2: [Couple],
+        general: [Couple],
+      },
+    },
+    tue: {
+      denominator: {
+        subgroup1: [Couple],
+        subgroup2: [Couple],
+        general: [Couple],
+      },
+      numerator: {
+        subgroup1: [Couple],
+        subgroup2: [Couple],
+        general: [Couple],
+      },
+    },
+    wed: {
+      denominator: {
+        subgroup1: [Couple],
+        subgroup2: [Couple],
+        general: [Couple],
+      },
+      numerator: {
+        subgroup1: [Couple],
+        subgroup2: [Couple],
+        general: [Couple],
+      },
+    },
+    thu: {
+      denominator: {
+        subgroup1: [Couple],
+        subgroup2: [Couple],
+        general: [Couple],
+      },
+      numerator: {
+        subgroup1: [Couple],
+        subgroup2: [Couple],
+        general: [Couple],
+      },
+    },
+    fri: {
+      denominator: {
+        subgroup1: [Couple],
+        subgroup2: [Couple],
+        general: [Couple],
+      },
+      numerator: {
+        subgroup1: [Couple],
+        subgroup2: [Couple],
+        general: [Couple],
+      },
+    },
   },
   group: {
     type: mongoose.Schema.Types.ObjectId,
