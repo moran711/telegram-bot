@@ -2,7 +2,14 @@ const userService = require('../services/user.service.js');
 
 class UserController {
   async addUser(user) {
+    if (!user.subscriptions) {
+      user.subscriptions = [];
+    }
     return await userService.addUser(user);
+  }
+  async isUserExist(chatId) {
+    const candidates = this.getAllUsers({ chatId });
+    return !!(await candidates).length;
   }
   async updateUser(id, user) {
     try {
@@ -31,8 +38,8 @@ class UserController {
     }
     return user;
   }
-  async getAllUsers() {
-    return await userService.getAllUsers();
+  async getAllUsers(query) {
+    return await userService.getAllUsers(query);
   }
 }
 

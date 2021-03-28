@@ -16,8 +16,13 @@ class SceduleService {
   async getSceduleById(_id) {
     return await sceduleModel.findOne({ _id }).exec();
   }
-  async getAllScedules(query = {}) {
-    return await sceduleModel.find(query);
+  async getAllScedules(
+    query = {},
+    sort = {
+      createdAt: -1,
+    }
+  ) {
+    return await sceduleModel.find(query).sort(sort);
   }
 }
 

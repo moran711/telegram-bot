@@ -16,7 +16,12 @@ class GroupService {
   async getGroupById(_id) {
     return await groupModel.findOne({ _id }).exec();
   }
-  async getAllGroups(query) {
+  async getAllGroups(
+    query,
+    sort = {
+      createdAt: -1,
+    }
+  ) {
     return await groupModel.find(query);
   }
 }

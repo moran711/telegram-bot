@@ -16,8 +16,13 @@ class InstituteService {
   async getInstituteById(_id) {
     return await instituteModel.findOne({ _id }).exec();
   }
-  async getAllInstitutes() {
-    return await instituteModel.find();
+  async getAllInstitutes(
+    query = {},
+    sort = {
+      createdAt: -1,
+    }
+  ) {
+    return await instituteModel.find(query).sort(sort);
   }
 }
 

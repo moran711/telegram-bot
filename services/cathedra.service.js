@@ -16,8 +16,13 @@ class CathedraService {
   async getCathedraById(_id) {
     return await cathedraModel.findOne({ _id }).exec();
   }
-  async getAllCathedras(query = {}) {
-    return await cathedraModel.find(query);
+  async getAllCathedras(
+    query = {},
+    sort = {
+      createdAt: -1,
+    }
+  ) {
+    return await cathedraModel.find(query).sort(sort);
   }
 }
 

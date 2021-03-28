@@ -43,7 +43,7 @@ const sceduleQuery = (bot) => async (query) => {
       group: selectedItem,
     });
 
-    bot.sendMessage(chatId, 'Виберіть день тижня для групи', {
+    await bot.sendMessage(chatId, 'Виберіть день тижня для групи', {
       reply_markup: { inline_keyboard: formatDaysForKeyboard(scedule[0]._id) },
     });
   } else if (
@@ -52,9 +52,11 @@ const sceduleQuery = (bot) => async (query) => {
   ) {
     const scedule = await sceduleController.getSceduleById(possibleSceduleId);
 
-    const sceduleMarkdown = scedule.week[possibleSceduleDay][getTypeOfWeek]
+    const sceduleMarkdown = `<b>Ваш розклад:</b>\n\n${scedule.week[
+      possibleSceduleDay
+    ][getTypeOfWeek]
       .map((couple) => formatSceduleForСouple(couple))
-      .join('\n--------------\n');
+      .join('\n--------------\n')}`;
     sceduleMarkdown
       ? bot.sendMessage(chatId, sceduleMarkdown, { parse_mode: 'html' })
       : bot.sendMessage(chatId, 'Для вибраного дня розкладу немає');

@@ -5,8 +5,9 @@ const connectDB = require('./connectDB');
 const bodyParser = require('body-parser');
 const { sceduleQuery } = require('./callbacks/query.callbacks');
 const {
-  getSceduleCallback,
+  getSceduleCommandCallback,
 } = require('./callbacks/commands/get-scedule.callback');
+const { startCommandCallback } = require('./callbacks/commands/start.callback');
 const app = express();
 app.use(bodyParser.json());
 
@@ -37,6 +38,8 @@ if (process.env.NODE_ENV === 'production')
 
 bot.on('callback_query', sceduleQuery(bot));
 
-bot.onText(/\/get_scedule/, getSceduleCallback(bot));
+bot.onText(/\/get_scedule/, getSceduleCommandCallback(bot));
 
 bot.on('polling_error', (err) => console.log(err));
+
+bot.onText(/\/start/, startCommandCallback(bot));
