@@ -1,6 +1,6 @@
 class CronDate {
   everyNMinutes(n) {
-    return `*/${n} * * * *`
+    return `*/${n} * * * *`;
   }
 }
 

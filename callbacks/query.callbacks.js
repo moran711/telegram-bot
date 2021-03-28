@@ -60,11 +60,7 @@ const sceduleQuery = (bot) => async (query) => {
     const scedule = await sceduleController.getSceduleById(selectedItem.id);
     const day = selectedItem.value.split(' ')[0];
     const subgroup = selectedItem.value.split(' ')[1];
-    const sceduleMarkdown = getSceduleMarkdown(
-      scedule,
-      day,
-      subgroup
-    );
+    const sceduleMarkdown = getSceduleMarkdown(scedule, day, subgroup);
     bot.sendMessage(chatId, sceduleMarkdown, { parse_mode: 'html' });
   }
 };

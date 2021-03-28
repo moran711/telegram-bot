@@ -4,7 +4,7 @@ const types = {
   group: 'group',
   scedule: 'scedule',
   institute: 'institute',
-  subgroup: 'subgr'
-}
+  subgroup: 'subgr',
+};
 
-module.exports = {types}
+module.exports = { types };
