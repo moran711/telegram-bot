@@ -16,8 +16,13 @@ class UserService {
   async getUserById(_id) {
     return await userModel.findOne({ _id }).exec();
   }
-  async getAllUsers() {
-    return await userModel.find();
+  async getAllUsers(
+    query,
+    sort = {
+      createdAt: -1,
+    }
+  ) {
+    return await userModel.find(query).sort(sort);
   }
 }
 

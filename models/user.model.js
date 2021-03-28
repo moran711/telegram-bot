@@ -7,6 +7,8 @@ const userSchema = new mongoose.Schema({
   },
   subscriptions: [{ require: true, type: String }],
   chatId: { require: true, type: String },
+  name: { require: true, type: String },
+  username: { require: true, type: String },
 });
 
 module.exports = mongoose.model('User', userSchema);
