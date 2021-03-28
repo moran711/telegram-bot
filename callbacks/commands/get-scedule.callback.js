@@ -1,3 +1,4 @@
+const { types } = require('../../consts/types.consts');
 const instituteController = require('../../controllers/institute.controller');
 const userController = require('../../controllers/user.controller');
 const formatDataForKeyboard = require('../../helpers/formatDataForKeyboard');
@@ -15,7 +16,7 @@ const getSceduleCommandCallback = (bot) => async (msg) => {
   institutes.length
     ? bot.sendMessage(chatId, 'Вибери із списку свій інститут', {
         reply_markup: {
-          inline_keyboard: formatDataForKeyboard(institutes),
+          inline_keyboard: formatDataForKeyboard(institutes, types.institute),
         },
       })
     : bot.sendMessage(chatId, 'Інститутів поки немає');

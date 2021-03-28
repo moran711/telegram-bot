@@ -1,8 +1,8 @@
-const formatDataForKeyboard = (data) => {
+const formatDataForKeyboard = (data, type) => {
   return data?.map((el) => [
     {
       text: el.value,
-      callback_data: el._id,
+      callback_data: JSON.stringify({type, id: el._id}),
     },
   ]);
 };

@@ -1,3 +1,5 @@
+const { types } = require("../consts/types.consts");
+
 const days = {
   mon: 'Понеділок',
   tue: 'Вівторок',
@@ -6,11 +8,11 @@ const days = {
   fri: 'Пятниця',
 };
 
-const formatDaysForKeyboard = (sceduleId) => {
+const formatDaysForKeyboard = (sceduleId, subgroup) => {
   return Object.keys(days).map((day) => [
     {
       text: days[day],
-      callback_data: `${day} ${sceduleId}`,
+      callback_data: JSON.stringify({type: types.daysForScedule, id:  sceduleId, value: `${day} ${subgroup}`}),
     },
   ]);
 };
