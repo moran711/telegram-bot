@@ -1,8 +1,9 @@
 const axios = require('axios');
 const { schedule } = require('node-cron');
+const cronDate = require('../helpers/cronDate');
 
 const rememberAboutHealsCheck = (requestUri) => {
-  schedule('*/1 * * * *', async () => {
+  schedule(cronDate.everyNMinutes(30), async () => {
     console.log('heals check started');
     try {
       await axios.post(requestUri + '/heals-check', {});
