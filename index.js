@@ -8,6 +8,7 @@ const {
   getSceduleCommandCallback,
 } = require('./callbacks/commands/get-scedule.callback');
 const { startCommandCallback } = require('./callbacks/commands/start.callback');
+const { cronJobs } = require('./cron-jobs');
 const app = express();
 app.use(bodyParser.json());
 
@@ -18,9 +19,15 @@ app.get('/', function (req, res) {
 const token = process.env.BOT_TOKEN;
 const port = process.env.PORT || 8443;
 
+const requestUri =
+  process.env.NODE_ENV === 'production'
+    ? process.env.HEROKU_URL
+    : `http://localhost:${port}`;
+
 const botOptions = {
   polling: process.env.NODE_ENV !== 'production',
 };
+
 app.listen(port, async () => {
   await connectDB();
   console.log(`server listen on port ${port}`);
@@ -33,6 +40,12 @@ app.post('/' + bot.token, (req, res) => {
   res.sendStatus(200);
 });
 
+app.post('/heals-check', function (req, res) {
+  res.status(200);
+  res.send('Hello man!');
+  console.log('heals check finished!');
+});
+
 if (process.env.NODE_ENV === 'production')
   bot.setWebHook(process.env.HEROKU_URL + bot.token);
 
@@ -43,3 +56,5 @@ bot.onText(/\/get_scedule/, getSceduleCommandCallback(bot));
 bot.on('polling_error', (err) => console.log(err));
 
 bot.onText(/\/start/, startCommandCallback(bot));
+
+cronJobs.forEach((job) => job(requestUri));
