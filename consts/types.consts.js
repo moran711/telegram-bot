@@ -1,10 +1,11 @@
 const types = {
   daysForScedule: 'days',
-  cathedra: 'cathedra',
-  group: 'group',
-  scedule: 'scedule',
-  institute: 'institute',
+  cathedra: 'ca',
+  group: 'gr',
+  scedule: 'sc',
+  institute: 'in',
   subgroup: 'subgr',
+  subscription: 'subs',
 };
 
 module.exports = { types };

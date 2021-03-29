@@ -8,6 +8,10 @@ const { getSceduleMarkdown } = require('../helpers/getSceduleMarkdown');
 const {
   formatSubgroupForKeyboard,
 } = require('../helpers/formatSubgroupForKeyboard');
+const {
+  formatSubscriptionKeyboard,
+} = require('../helpers/formatSubscriptionKeyboard');
+const userController = require('../controllers/user.controller');
 
 const sceduleQuery = (bot) => async (query) => {
   const chatId = query.message.chat.id;
@@ -61,7 +65,24 @@ const sceduleQuery = (bot) => async (query) => {
     const day = selectedItem.value.split(' ')[0];
     const subgroup = selectedItem.value.split(' ')[1];
     const sceduleMarkdown = getSceduleMarkdown(scedule, day, subgroup);
-    bot.sendMessage(chatId, sceduleMarkdown, { parse_mode: 'html' });
+    const keyboard = await formatSubscriptionKeyboard(
+      types.scedule,
+      selectedItem.id,
+      chatId
+    );
+    bot.sendMessage(chatId, sceduleMarkdown, {
+      parse_mode: 'html',
+      reply_markup: keyboard ? { inline_keyboard: keyboard } : null,
+    });
+  } else if (selectedItem.type === types.subscription) {
+    const subscription = { id: selectedItem.id, type: selectedItem.value };
+    if (await userController.checkIfUserHaveSubs(chatId, subscription.id)) {
+      bot.sendMessage(chatId, 'Ви уже підписані)');
+      return;
+    }
+
+    await userController.addSubscriptionForUser(query.message, subscription);
+    bot.sendMessage(chatId, 'Ви успішно підписались на push-сповіщення');
   }
 };
 
