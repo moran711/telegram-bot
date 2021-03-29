@@ -13,8 +13,8 @@ class UserService {
   async deleteUser(id) {
     return await userModel.findByIdAndDelete(id).exec();
   }
-  async getUserById(_id) {
-    return await userModel.findOne({ _id }).exec();
+  async getUserByField(field) {
+    return await userModel.findOne(field).exec();
   }
   async getAllUsers(
     query,
