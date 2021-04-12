@@ -1,4 +1,3 @@
-const cathedraController = require('../controllers/cathedra.controller');
 const groupController = require('../controllers/group.controller');
 const formatDataForKeyboard = require('../helpers/formatDataForKeyboard');
 const sceduleController = require('../controllers/scedule.controller');
@@ -15,32 +14,28 @@ const userController = require('../controllers/user.controller');
 
 const sceduleQuery = (bot) => async (query) => {
   const chatId = query.message.chat.id;
-  console.log(chatId);
+  const messageToEdit = query.message.message_id;
   const selectedItem = JSON.parse(query.data);
   if (selectedItem.type === types.institute) {
-    const cathedras = await cathedraController.getAllCathedras({
+    const groups = await groupController.getAllGroups({
       institute: selectedItem.id,
     });
-    cathedras.length
-      ? bot.sendMessage(chatId, 'Вибери із списку свою кафедру', {
-          reply_markup: {
-            inline_keyboard: formatDataForKeyboard(cathedras, types.cathedra),
-          },
-        })
-      : bot.sendMessage(chatId, 'Для вибраного інституту поки немає кафедри');
-  } else if (selectedItem.type === types.cathedra) {
-    const groups = await groupController.getAllGroups({
-      cathedra: selectedItem.id,
-    });
     groups.length
-      ? bot.sendMessage(chatId, 'Вибери із списку свою групу', {
+      ? bot.editMessageText('Вибери із списку свою групу', {
+          chat_id: chatId,
+          message_id: messageToEdit,
           reply_markup: {
-            inline_keyboard: formatDataForKeyboard(groups, types.group),
+            inline_keyboard: formatDataForKeyboard(groups, types.group, 4),
           },
         })
-      : bot.sendMessage(chatId, 'Для вибраної кафедри поки немає групи');
+      : bot.editMessageText('Для вибраної кафедри поки немає групи', {
+          chat_id: chatId,
+          message_id: messageToEdit,
+        });
   } else if (selectedItem.type === types.group) {
-    await bot.sendMessage(chatId, 'Виберіть підгрупу', {
+    await bot.editMessageText('Виберіть підгрупу', {
+      chat_id: chatId,
+      message_id: messageToEdit,
       reply_markup: {
         inline_keyboard: formatSubgroupForKeyboard(selectedItem),
       },
@@ -51,7 +46,9 @@ const sceduleQuery = (bot) => async (query) => {
     });
 
     scedule.length
-      ? await bot.sendMessage(chatId, 'Виберіть день тижня для групи', {
+      ? await bot.editMessageText('Виберіть день тижня для групи', {
+          chat_id: chatId,
+          message_id: messageToEdit,
           reply_markup: {
             inline_keyboard: formatDaysForKeyboard(
               scedule[0]._id,
@@ -59,7 +56,10 @@ const sceduleQuery = (bot) => async (query) => {
             ),
           },
         })
-      : bot.sendMessage(chatId, 'Для вибраної підгрупи поки немає розкладу');
+      : bot.editMessageText('Для вибраної підгрупи поки немає розкладу', {
+          chat_id: chatId,
+          message_id: messageToEdit,
+        });
   } else if (selectedItem.type === types.daysForScedule) {
     const scedule = await sceduleController.getSceduleById(selectedItem.id);
     const day = selectedItem.value.split(' ')[0];
@@ -70,7 +70,9 @@ const sceduleQuery = (bot) => async (query) => {
       selectedItem.id,
       chatId
     );
-    bot.sendMessage(chatId, sceduleMarkdown, {
+    bot.editMessageText(sceduleMarkdown, {
+      chat_id: chatId,
+      message_id: messageToEdit,
       parse_mode: 'html',
       reply_markup: keyboard ? { inline_keyboard: keyboard } : null,
     });

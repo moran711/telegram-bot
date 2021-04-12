@@ -14,9 +14,13 @@ const getSceduleCommandCallback = (bot) => async (msg) => {
   }
   const institutes = await instituteController.getAllInstitutes();
   institutes.length
-    ? bot.sendMessage(chatId, 'Вибери із списку свій інститут', {
+    ? await bot.sendMessage(chatId, 'Вибери із списку свій інститут', {
         reply_markup: {
-          inline_keyboard: formatDataForKeyboard(institutes, types.institute),
+          inline_keyboard: formatDataForKeyboard(
+            institutes,
+            types.institute,
+            3
+          ),
         },
       })
     : bot.sendMessage(chatId, 'Інститутів поки немає');

@@ -3,6 +3,14 @@ class InstituteController {
   async addInstitute(institute) {
     return instituteService.addInstitute(institute);
   }
+  async addInstitutes(institutes) {
+    return institutes.forEach(async (institute) => {
+      const isInstituteExist = (
+        await this.getAllInstitutes({ value: institute })
+      ).length;
+      return isInstituteExist ? null : this.addInstitute({ value: institute });
+    });
+  }
   async updateInstitute(id, institute) {
     try {
       return await instituteService.updateInstitute(id, institute);
@@ -30,8 +38,8 @@ class InstituteController {
     }
     return institute;
   }
-  async getAllInstitutes() {
-    return await instituteService.getAllInstitutes();
+  async getAllInstitutes(query = {}) {
+    return await instituteService.getAllInstitutes(query);
   }
 }
 
