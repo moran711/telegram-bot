@@ -9,6 +9,7 @@ const {
 } = require('./callbacks/commands/get-scedule.callback');
 const { startCommandCallback } = require('./callbacks/commands/start.callback');
 const { cronJobs } = require('./cron-jobs');
+const getSceduleData = require('./parsers');
 const app = express();
 app.use(bodyParser.json());
 
@@ -30,6 +31,7 @@ const botOptions = {
 
 app.listen(port, async () => {
   await connectDB();
+  // await getSceduleData();
   console.log(`server listen on port ${port}`);
 });
 

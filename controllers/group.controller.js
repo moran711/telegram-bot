@@ -4,6 +4,16 @@ class GroupController {
   async addGroup(group) {
     return await groupService.addGroup(group);
   }
+  async addGroups(groups, instituteId) {
+    return groups.forEach(async (group) => {
+      const isGroupExist = (
+        await this.getAllGroups({ value: group, institute: instituteId })
+      ).length;
+      return isGroupExist
+        ? null
+        : this.addGroup({ value: group, institute: instituteId });
+    });
+  }
   async updateGroup(id, group) {
     try {
       return await groupService.updateGroup(id, group);

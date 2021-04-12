@@ -6,9 +6,9 @@ const groupSchema = new mongoose.Schema({
     default: Date.now,
   },
   value: { require: true, type: String },
-  cathedra: {
+  institute: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Cathedra',
+    ref: 'Institute',
     require: true,
   },
 });
