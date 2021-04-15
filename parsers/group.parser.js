@@ -24,7 +24,6 @@ const parseGroups = async () => {
           .filter((el) => el !== '- Усі -')
           .sort();
       });
-    groupController;
     await groupController.addGroups(groups, institute._id);
   });
 };

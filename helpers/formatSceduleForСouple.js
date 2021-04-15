@@ -1,7 +1,7 @@
 const getTimeFromCouple = require('./getTimeFromCouple');
 
 const formatSceduleForСouple = (scedule) => {
-  return `Пара: <i>${scedule.couple}</i>\nВикладач: <i>${
+  return `Пара: <i>${scedule.couple}</i>\n${scedule.type}\nВикладач: <i>${
     scedule.teacher
   }</i>\nПредмет: <i>${scedule.subject}</i>\nЧас: <i>${getTimeFromCouple(
     scedule.couple

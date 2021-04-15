@@ -44,6 +44,9 @@ class GroupController {
   async getAllGroups(query = {}) {
     return await groupService.getAllGroups(query);
   }
+  async getAllGroupsWithInstitutes(query = {}) {
+    return await groupService.getAllGroupsWithInstitutes(query);
+  }
 }
 
 module.exports = new GroupController();
