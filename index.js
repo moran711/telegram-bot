@@ -31,7 +31,7 @@ const botOptions = {
 
 app.listen(port, async () => {
   await connectDB();
-  // await getSceduleData();
+  await getSceduleData();
   console.log(`server listen on port ${port}`);
 });
 

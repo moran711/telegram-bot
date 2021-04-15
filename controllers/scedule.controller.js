@@ -2,6 +2,14 @@ const sceduleService = require('../services/scedule.service.js');
 
 class SceduleController {
   async addScedule(scedule) {
+    const perviousScedules = await this.getAllScedules({
+      group: scedule.group,
+    });
+    if (perviousScedules.length) {
+      perviousScedules.forEach(async (el) => {
+        await this.deleteScedule(el._id);
+      });
+    }
     return await sceduleService.addScedule(scedule);
   }
   async updateScedule(id, scedule) {

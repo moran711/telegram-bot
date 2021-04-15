@@ -24,6 +24,14 @@ class GroupService {
   ) {
     return await groupModel.find(query);
   }
+  async getAllGroupsWithInstitutes(
+    query,
+    sort = {
+      createdAt: -1,
+    }
+  ) {
+    return await groupModel.find(query).populate('institute');
+  }
 }
 
 module.exports = new GroupService();
