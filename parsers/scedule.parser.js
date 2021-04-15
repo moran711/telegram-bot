@@ -19,7 +19,7 @@ const parseScedule = async () => {
       const scedule = await axios
         .get(
           encodeURI(
-            `http://student.lpnu.ua/students_schedule?departmentparent_abbrname_selective=${group.institute.value}&studygroup_abbrname_selective=${group.value}&semestrduration=1`
+            `https://student.lpnu.ua/students_schedule?departmentparent_abbrname_selective=${group.institute.value}&studygroup_abbrname_selective=${group.value}&semestrduration=1`
           )
         )
         .then((res) => res.data)
