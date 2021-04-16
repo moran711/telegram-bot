@@ -28,10 +28,10 @@ class GroupController {
       return;
     }
   }
-  async getGroupById(_id) {
+  async getGroupById(_id, populateInstitute = false) {
     let group;
     try {
-      group = await groupService.getGroupById(_id);
+      group = await groupService.getGroupById(_id, populateInstitute);
     } catch (e) {
       return;
     }

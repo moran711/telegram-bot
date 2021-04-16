@@ -2,10 +2,10 @@ const { types } = require('../consts/types.consts');
 const userController = require('../controllers/user.controller');
 
 const formatSubscriptionKeyboard = async (type, subId, chatId) => {
-  let keyboard = [];
+  let keyboard;
   (await userController.checkIfUserHaveSubs(chatId, subId))
     ? null
-    : keyboard.push([
+    : (keyboard = [
         {
           text: 'Підписатись на push-сповіщення',
           callback_data: JSON.stringify({
