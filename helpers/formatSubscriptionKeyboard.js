@@ -3,9 +3,9 @@ const userController = require('../controllers/user.controller');
 
 const formatSubscriptionKeyboard = async (type, subId, chatId) => {
   let keyboard;
-  (await userController.checkIfUserHaveSubs(chatId, subId))
+  return (await userController.checkIfUserHaveSubs(chatId, subId))
     ? null
-    : (keyboard = [
+    : [
         {
           text: 'Підписатись на push-сповіщення',
           callback_data: JSON.stringify({
@@ -14,8 +14,7 @@ const formatSubscriptionKeyboard = async (type, subId, chatId) => {
             id: subId,
           }),
         },
-      ]);
-  return keyboard.length ? keyboard : null;
+      ];
 };
 
 module.exports = {

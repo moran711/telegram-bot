@@ -76,6 +76,7 @@ const sceduleQuery = (bot) => async (query) => {
       subgroup,
       5
     );
+    subscription ? keyboardData.push(subscription) : keyboardData;
 
     scedule
       ? await bot.editMessageText(sceduleMarkdown, {
@@ -83,9 +84,7 @@ const sceduleQuery = (bot) => async (query) => {
           message_id: messageToEdit,
           parse_mode: 'html',
           reply_markup: {
-            inline_keyboard: subscription
-              ? keyboardData
-              : keyboardData.push(subscription),
+            inline_keyboard: keyboardData,
           },
         })
       : bot.editMessageText('Для вибраної підгрупи поки немає розкладу', {
