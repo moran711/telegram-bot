@@ -13,8 +13,10 @@ class GroupService {
   async deleteGroup(id) {
     return await groupModel.findByIdAndDelete(id).exec();
   }
-  async getGroupById(_id) {
-    return await groupModel.findOne({ _id }).exec();
+  async getGroupById(_id, populateInstitute) {
+    return populateInstitute
+      ? await groupModel.findOne({ _id }).populate('institute').exec()
+      : await groupModel.findOne({ _id }).exec();
   }
   async getAllGroups(
     query,
@@ -30,7 +32,7 @@ class GroupService {
       createdAt: -1,
     }
   ) {
-    return await groupModel.find(query).populate('institute');
+    return await groupModel.find(query).populate('institute').exec();
   }
 }
 
