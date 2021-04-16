@@ -77,38 +77,38 @@ const parseScedule = async (groupId) => {
                   )
                 : null;
               subgroup1.length
-                ? result[daysUaToUs[day]].numerator.general.push(
+                ? result[daysUaToUs[day]].numerator.subgroup1.push(
                     parseCouple($, subgroup1, couples[index])
                   ) &&
-                  result[daysUaToUs[day]].denominator.general.push(
+                  result[daysUaToUs[day]].denominator.subgroup1.push(
                     parseCouple($, subgroup1, couples[index])
                   )
                 : null;
               subgroup2.length
-                ? result[daysUaToUs[day]].numerator.general.push(
+                ? result[daysUaToUs[day]].numerator.subgroup2.push(
                     parseCouple($, subgroup2, couples[index])
                   ) &&
-                  result[daysUaToUs[day]].denominator.general.push(
+                  result[daysUaToUs[day]].denominator.subgroup2.push(
                     parseCouple($, subgroup2, couples[index])
                   )
                 : null;
               subgroup1Denom.length
-                ? result[daysUaToUs[day]].denominator.general.push(
+                ? result[daysUaToUs[day]].denominator.subgroup1.push(
                     parseCouple($, subgroup1Denom, couples[index])
                   )
                 : null;
               subgroup2Denom.length
-                ? result[daysUaToUs[day]].denominator.general.push(
+                ? result[daysUaToUs[day]].denominator.subgroup2.push(
                     parseCouple($, subgroup2Denom, couples[index])
                   )
                 : null;
               subgroup1Num.length
-                ? result[daysUaToUs[day]].numerator.general.push(
+                ? result[daysUaToUs[day]].numerator.subgroup1.push(
                     parseCouple($, subgroup1Num, couples[index])
                   )
                 : null;
               subgroup2Num.length
-                ? result[daysUaToUs[day]].numerator.general.push(
+                ? result[daysUaToUs[day]].numerator.subgroup2.push(
                     parseCouple($, subgroup2Num, couples[index])
                   )
                 : null;
