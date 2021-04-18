@@ -1,3 +1,4 @@
+const { getCourse } = require('../helpers/getCourse.js');
 const groupService = require('../services/group.service.js');
 
 class GroupController {
@@ -6,12 +7,14 @@ class GroupController {
   }
   async addGroups(groups, instituteId) {
     return groups.forEach(async (group) => {
+      const course = getCourse(group);
       const isGroupExist = (
         await this.getAllGroups({ value: group, institute: instituteId })
       ).length;
+
       return isGroupExist
         ? null
-        : this.addGroup({ value: group, institute: instituteId });
+        : this.addGroup({ value: group, institute: instituteId, course });
     });
   }
   async updateGroup(id, group) {

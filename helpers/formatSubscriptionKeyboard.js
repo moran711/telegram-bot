@@ -2,7 +2,6 @@ const { types } = require('../consts/types.consts');
 const userController = require('../controllers/user.controller');
 
 const formatSubscriptionKeyboard = async (type, subId, chatId) => {
-  let keyboard;
   return (await userController.checkIfUserHaveSubs(chatId, subId))
     ? null
     : [

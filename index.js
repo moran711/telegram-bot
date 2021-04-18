@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const { sceduleQuery } = require('./callbacks/query.callbacks');
 const {
   getSceduleCommandCallback,
-} = require('./callbacks/commands/get-scedule.callback');
+} = require('./callbacks/commands/scedule/get-scedule.callback');
 const { startCommandCallback } = require('./callbacks/commands/start.callback');
 const { cronJobs } = require('./cron-jobs');
 const getSceduleData = require('./parsers');

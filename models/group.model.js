@@ -11,6 +11,7 @@ const groupSchema = new mongoose.Schema({
     ref: 'Institute',
     require: true,
   },
+  course: { require: true, type: Number },
 });
 
 module.exports = mongoose.model('Group', groupSchema);
