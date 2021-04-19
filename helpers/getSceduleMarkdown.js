@@ -1,4 +1,4 @@
-const formatSceduleForСouple = require('./formatSceduleForСouple');
+const getСoupleMarkdown = require('./getСoupleMarkdown');
 const { subgroups } = require('./formatSubgroupForKeyboard');
 const getTypeOfWeek = require('./getTypeOfWeek');
 
@@ -10,7 +10,7 @@ const getSceduleMarkdown = (scedule, day, subgroup) => {
   ].sort((a, b) => a.couple - b.couple);
   return sceduleForSubgroup.length
     ? `<b>Ваш розклад:</b>\n\n${sceduleForSubgroup
-        .map((couple) => formatSceduleForСouple(couple))
+        .map((couple) => getСoupleMarkdown(couple))
         .join('\n--------------\n')}`
     : 'Для вибраного дня розкладу немає';
 };

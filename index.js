@@ -31,7 +31,7 @@ const botOptions = {
 
 app.listen(port, async () => {
   await connectDB();
-  await getSceduleData();
+  // await getSceduleData();
   console.log(`server listen on port ${port}`);
 });
 
@@ -59,4 +59,4 @@ bot.on('polling_error', (err) => console.log(err));
 
 bot.onText(/\/start/, startCommandCallback(bot));
 
-cronJobs.forEach((job) => job(requestUri));
+cronJobs.map((job) => job(requestUri, bot));

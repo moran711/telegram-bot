@@ -29,7 +29,7 @@ const subgroupStep = async (chatId, bot, messageToEdit, selectedItem) => {
   const sceduleMarkdown = getSceduleMarkdown(scedule, day, subgroup);
 
   const subscription = await formatSubscriptionKeyboard(
-    types.scedule,
+    `${types.scedule} ${subgroup}`,
     selectedItem.id,
     chatId
   );

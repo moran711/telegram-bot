@@ -11,4 +11,4 @@ const timeOfCouples = {
 
 const getTimeFromCouple = (couple) => timeOfCouples[couple];
 
-module.exports = getTimeFromCouple;
+module.exports = { timeOfCouples, getTimeFromCouple };

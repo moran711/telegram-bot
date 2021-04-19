@@ -7,14 +7,15 @@ class GroupController {
   }
   async addGroups(groups, instituteId) {
     return groups.forEach(async (group) => {
-      const course = getCourse(group);
+      const groupName = group.trim();
+      const course = getCourse(groupName);
       const isGroupExist = (
-        await this.getAllGroups({ value: group, institute: instituteId })
+        await this.getAllGroups({ value: groupName, institute: instituteId })
       ).length;
 
       return isGroupExist
         ? null
-        : this.addGroup({ value: group, institute: instituteId, course });
+        : this.addGroup({ value: groupName, institute: instituteId, course });
     });
   }
   async updateGroup(id, group) {

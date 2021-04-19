@@ -1,6 +1,6 @@
-const getTimeFromCouple = require('./getTimeFromCouple');
+const { getTimeFromCouple } = require('./getTimeFromCouple');
 
-const formatSceduleForСouple = (scedule) => {
+const getСoupleMarkdown = (scedule) => {
   return `Пара: <i>${scedule.couple}</i>\n${scedule.type}\nВикладач: <i>${
     scedule.teacher
   }</i>\nПредмет: <i>${scedule.subject}</i>\nЧас: <i>${getTimeFromCouple(
@@ -8,4 +8,4 @@ const formatSceduleForСouple = (scedule) => {
   )}</i>\n\n<a href="${scedule.uri}">посилання</a>`;
 };
 
-module.exports = formatSceduleForСouple;
+module.exports = getСoupleMarkdown;
