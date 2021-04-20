@@ -22,7 +22,7 @@ class UserService {
       createdAt: -1,
     }
   ) {
-    return await userModel.find(query).sort(sort);
+    return await userModel.find(query).sort(sort).exec();
   }
 }
 

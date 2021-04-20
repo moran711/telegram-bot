@@ -17,59 +17,60 @@ const rememberAboutUserSubscription = (_, bot) => {
     schedule(
       cronDate.everyDayAt(startOfCoupleInHours, startOfCoupleInMinutes),
       async () => {
-        const currentDate = new Date();
-        const weekday = new Intl.DateTimeFormat('en-US', options)
-          .format(currentDate)
-          .toLowerCase();
-        const avaiableDays = Object.values(days);
-        if (!avaiableDays.includes(weekday)) {
-          return;
+        try {
+          const currentDate = new Date();
+          const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short' })
+            .format(currentDate)
+            .toLowerCase();
+          const avaiableDays = Object.keys(days);
+
+          if (!avaiableDays.includes(weekday)) {
+            return;
+          }
+          const users = await userController.getAllUsers({
+            subscriptions: { $not: { $size: 0 } },
+          });
+          users.map((user) => {
+            user.subscriptions
+              .filter((subscription) => subscription.type === types.scedule)
+              .map(async (subscription) => {
+                const scedule = await sceduleController.getSceduleById(
+                  subscription.id
+                );
+                const typeOfWeek = getTypeOfWeek();
+                const subgroup = subscription.subgroup;
+                const currentScedule = scedule.week[weekday][typeOfWeek];
+                const generalCouple = currentScedule.general.find(
+                  (couple) => couple.couple === coupleNum
+                );
+                const coupleForSubgroup = currentScedule[
+                  `subgroup${subgroup}`
+                ].find((couple) => couple.couple === coupleNum);
+                if (generalCouple) {
+                  bot.sendMessage(
+                    user.chatId,
+                    `Ваша пара:\n${getСoupleMarkdown(generalCouple)}`,
+                    {
+                      parse_mode: 'html',
+                    }
+                  );
+                  return;
+                } else if (coupleForSubgroup) {
+                  bot.sendMessage(
+                    user.chatId,
+                    `Ваша пара:\n${getСoupleMarkdown(coupleForSubgroup)}`,
+                    {
+                      parse_mode: 'html',
+                    }
+                  );
+                  return;
+                }
+                return;
+              });
+          });
+        } catch (e) {
+          console.log(e);
         }
-        const users = await userController.getAllUsers({
-          subscriptions: { $not: { $size: 0 } },
-        });
-        users.map((user) => {
-          user.subscriptions
-            .filter((subscription) => subscription.type === types.scedule)
-            .map(async (subscription) => {
-              const scedule = await sceduleController.getSceduleById(
-                subscription.id
-              );
-              const typeOfWeek = getTypeOfWeek();
-              const subgroup = subscription.subgroup;
-              const currentScedule = scedule.week[weekday][typeOfWeek];
-              const generalCouple = currentScedule.general.find(
-                (couple) => couple.couple === coupleNum
-              );
-              const coupleForSubgroup = currentScedule[
-                `subgroup${subgroup}`
-              ].find((couple) => couple.couple === coupleNum);
-              if (generalCouple) {
-                bot.sendMessage(
-                  chatId,
-                  `Ваша пара:\n${getСoupleMarkdown(generalCouple)}`,
-                  {
-                    reply_markup: {
-                      inline_keyboard: keyboard,
-                    },
-                  }
-                );
-                return;
-              } else if (coupleForSubgroup) {
-                bot.sendMessage(
-                  chatId,
-                  `Ваша пара:\n${getСoupleMarkdown(coupleForSubgroup)}`,
-                  {
-                    reply_markup: {
-                      inline_keyboard: keyboard,
-                    },
-                  }
-                );
-                return;
-              }
-              return;
-            });
-        });
       }
     );
   });
