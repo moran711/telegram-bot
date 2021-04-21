@@ -9,16 +9,16 @@ const { days } = require('../helpers/formatDaysForKeyboard');
 const getСoupleMarkdown = require('../helpers/getСoupleMarkdown');
 
 const rememberAboutUserSubscription = (_, bot) => {
-  Object.keys(timeOfCouples).map((coupleNum) => {
-    const time = timeOfCouples[coupleNum];
-    const startOfCouple = time.split('-')[0];
-    const startOfCoupleInHours = startOfCouple.split(':')[0];
-    const startOfCoupleInMinutes = startOfCouple.split(':')[1];
-    console.log(`Scedule job for ${startOfCouple}`);
-    schedule(
-      cronDate.everyDayAt(startOfCoupleInHours, startOfCoupleInMinutes),
-      async () => {
-        try {
+  try {
+    Object.keys(timeOfCouples).map((coupleNum) => {
+      const time = timeOfCouples[coupleNum];
+      const startOfCouple = time.split('-')[0];
+      const startOfCoupleInHours = startOfCouple.split(':')[0];
+      const startOfCoupleInMinutes = startOfCouple.split(':')[1];
+      console.log(`Scedule job for ${startOfCouple}`);
+      schedule(
+        cronDate.everyDayAt(startOfCoupleInHours, startOfCoupleInMinutes),
+        async () => {
           console.log('Job started for couple ' + coupleNum);
           const currentDate = new Date();
           const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short' })
@@ -70,12 +70,12 @@ const rememberAboutUserSubscription = (_, bot) => {
                 return;
               });
           });
-        } catch (e) {
-          console.log(e);
         }
-      }
-    );
-  });
+      );
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 module.exports = {
