@@ -42,7 +42,7 @@ class UserController {
   }
   async checkIfUserHaveSubs(chatId, subId) {
     const user = await this.getUserByField('chatId', chatId);
-    return !!user.subscriptions.filter((el) => el.id === subId).length;
+    return !!user.subscriptions.filter((el) => el.id == subId).length;
   }
   async getUserByField(key, param) {
     let user;

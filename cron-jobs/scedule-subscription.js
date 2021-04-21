@@ -14,10 +14,12 @@ const rememberAboutUserSubscription = (_, bot) => {
     const startOfCouple = time.split('-')[0];
     const startOfCoupleInHours = startOfCouple.split(':')[0];
     const startOfCoupleInMinutes = startOfCouple.split(':')[1];
+    console.log(`Scedule job for ${startOfCouple}`);
     schedule(
       cronDate.everyDayAt(startOfCoupleInHours, startOfCoupleInMinutes),
       async () => {
         try {
+          console.log('Job started for couple ' + coupleNum);
           const currentDate = new Date();
           const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short' })
             .format(currentDate)
