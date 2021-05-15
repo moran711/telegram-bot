@@ -10,6 +10,7 @@ const {
 const { startCommandCallback } = require('./callbacks/commands/start.callback');
 const { cronJobs } = require('./cron-jobs');
 const getSceduleData = require('./parsers');
+const logger = require('./logger');
 const app = express();
 app.use(bodyParser.json());
 
@@ -32,7 +33,7 @@ const botOptions = {
 app.listen(port, async () => {
   await connectDB();
   // await getSceduleData();
-  console.log(`server listen on port ${port}`);
+  logger.info(`server listen on port ${port}`);
 });
 
 const bot = new TelegramBot(token, botOptions);
@@ -45,7 +46,7 @@ app.post('/' + bot.token, (req, res) => {
 app.post('/heals-check', function (req, res) {
   res.status(200);
   res.send('Hello man!');
-  console.log('heals check finished!');
+  logger.info('heals check finished!');
 });
 
 if (process.env.NODE_ENV === 'production')
@@ -55,7 +56,7 @@ bot.on('callback_query', sceduleQuery(bot));
 
 bot.onText(/\/get_scedule/, getSceduleCommandCallback(bot));
 
-bot.on('polling_error', (err) => console.log(err));
+bot.on('polling_error', (err) => logger.error(err));
 
 bot.onText(/\/start/, startCommandCallback(bot));
 

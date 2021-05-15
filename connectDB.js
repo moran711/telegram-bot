@@ -1,5 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
+const logger = require('./logger');
 
 const connectDB = async () => {
   const db = process.env.MONGO_URI;
@@ -10,9 +11,9 @@ const connectDB = async () => {
       useCreateIndex: true,
       useFindAndModify: false,
     });
-    console.log('MongoDB Connected...');
+    logger.info('MongoDB Connected...');
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   }
 };
 

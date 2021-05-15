@@ -1,80 +1,43 @@
 const { schedule } = require('node-cron');
 const cronDate = require('../helpers/cronDate');
-const { timeOfCouples } = require('../helpers/getTimeFromCouple');
 const userController = require('../controllers/user.controller');
-const { types } = require('../consts/types.consts');
-const sceduleController = require('../controllers/scedule.controller');
-const getTypeOfWeek = require('../helpers/getTypeOfWeek');
 const { days } = require('../helpers/formatDaysForKeyboard');
-const getСoupleMarkdown = require('../helpers/getСoupleMarkdown');
+const { sendSceduleForUsers } = require('../helpers/sendSceduleForUsers');
+const logger = require('../logger');
+
+const sceduleCallback = (bot) => async () => {
+  logger.info('Job started for couple ');
+  const currentDate = new Date();
+  const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short' })
+    .format(currentDate)
+    .toLowerCase();
+  const avaiableDays = Object.keys(days);
+
+  if (!avaiableDays.includes(weekday)) {
+    return;
+  }
+  const users = await userController.getAllUsers({
+    subscriptions: { $not: { $size: 0 } },
+  });
+  sendSceduleForUsers(users, weekday, bot);
+};
 
 const rememberAboutUserSubscription = (_, bot) => {
   try {
-    Object.keys(timeOfCouples).map((coupleNum) => {
-      const time = timeOfCouples[coupleNum];
-      const startOfCouple = time.split('-')[0];
-      const startOfCoupleInHours = startOfCouple.split(':')[0];
-      const startOfCoupleInMinutes = startOfCouple.split(':')[1];
-      console.log(`Scedule job for ${startOfCouple}`);
-      schedule(
-        cronDate.everyDayAt(startOfCoupleInHours, startOfCoupleInMinutes),
-        async () => {
-          console.log('Job started for couple ' + coupleNum);
-          const currentDate = new Date();
-          const weekday = new Intl.DateTimeFormat('en-US', { weekday: 'short' })
-            .format(currentDate)
-            .toLowerCase();
-          const avaiableDays = Object.keys(days);
-
-          if (!avaiableDays.includes(weekday)) {
-            return;
-          }
-          const users = await userController.getAllUsers({
-            subscriptions: { $not: { $size: 0 } },
-          });
-          users.map((user) => {
-            user.subscriptions
-              .filter((subscription) => subscription.type === types.scedule)
-              .map(async (subscription) => {
-                const scedule = await sceduleController.getSceduleById(
-                  subscription.id
-                );
-                const typeOfWeek = getTypeOfWeek();
-                const subgroup = subscription.subgroup;
-                const currentScedule = scedule.week[weekday][typeOfWeek];
-                const generalCouple = currentScedule.general.find(
-                  (couple) => couple.couple === coupleNum
-                );
-                const coupleForSubgroup = currentScedule[
-                  `subgroup${subgroup}`
-                ].find((couple) => couple.couple === coupleNum);
-                if (generalCouple) {
-                  bot.sendMessage(
-                    user.chatId,
-                    `Ваша пара:\n${getСoupleMarkdown(generalCouple)}`,
-                    {
-                      parse_mode: 'html',
-                    }
-                  );
-                  return;
-                } else if (coupleForSubgroup) {
-                  bot.sendMessage(
-                    user.chatId,
-                    `Ваша пара:\n${getСoupleMarkdown(coupleForSubgroup)}`,
-                    {
-                      parse_mode: 'html',
-                    }
-                  );
-                  return;
-                }
-                return;
-              });
-          });
-        }
-      );
-    });
+    schedule(cronDate.everyDayAt(8, 25), sceduleCallback(bot));
+    schedule(cronDate.everyDayAt(8, 30), sceduleCallback(bot));
+    schedule(cronDate.everyDayAt(10, 15), sceduleCallback(bot));
+    schedule(cronDate.everyDayAt(10, 20), sceduleCallback(bot));
+    schedule(cronDate.everyDayAt(12, 05), sceduleCallback(bot));
+    schedule(cronDate.everyDayAt(12, 10), sceduleCallback(bot));
+    schedule(cronDate.everyDayAt(14, 10), sceduleCallback(bot));
+    schedule(cronDate.everyDayAt(14, 15), sceduleCallback(bot));
+    schedule(cronDate.everyDayAt(15, 55), sceduleCallback(bot));
+    schedule(cronDate.everyDayAt(16, 00), sceduleCallback(bot));
+    schedule(cronDate.everyDayAt(17, 40), sceduleCallback(bot));
+    schedule(cronDate.everyDayAt(17, 45), sceduleCallback(bot));
   } catch (e) {
-    console.log(e);
+    logger.error(e);
   }
 };
 
