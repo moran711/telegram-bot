@@ -1,0 +1,38 @@
+[2021-05-15T22:04:14.804] [ERROR] cheese - Cheese is too ripe!
+[2021-05-15T22:04:14.807] [FATAL] cheese - Cheese was breeding ground for listeria.
+[2021-05-15T22:05:19.386] [ERROR] cheese - Cheese is too ripe!
+[2021-05-15T22:05:19.389] [FATAL] cheese - Cheese was breeding ground for listeria.
+[2021-05-15T22:05:51.372] [ERROR] default - AAArgh! Something went wrong { some: 'otherObject', useful_for: 'debug purposes' }
+[2021-05-15T22:05:51.382] [INFO] default - 
+[2021-05-15T22:05:51.383] [ERROR] cheese - Cheese gouda is too ripe!
+[2021-05-15T22:05:51.383] [FATAL] cheese - Cheese was breeding ground for listeria.
+[2021-05-15T22:05:51.384] [DEBUG] pants - Something for pants
+[2021-05-15T22:06:58.895] [ERROR] default - error
+[2021-05-15T22:12:06.562] [ERROR] default - ReferenceError: logger is not defined
+    at CronDate.everyDayAt (C:\Users\roman\OneDrive\Desktop\schedule-nulp\helpers\cronDate.js:6:5)
+    at rememberAboutUserSubscription (C:\Users\roman\OneDrive\Desktop\schedule-nulp\cron-jobs\scedule-subscription.js:27:23)
+    at C:\Users\roman\OneDrive\Desktop\schedule-nulp\index.js:63:23
+    at Array.map (<anonymous>)
+    at Object.<anonymous> (C:\Users\roman\OneDrive\Desktop\schedule-nulp\index.js:63:10)
+    at Module._compile (internal/modules/cjs/loader.js:1063:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10)
+    at Module.load (internal/modules/cjs/loader.js:928:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:769:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:72:12)
+    at internal/main/run_main_module.js:17:47
+[2021-05-15T22:12:11.738] [INFO] default - MongoDB Connected...
+[2021-05-15T22:12:11.740] [INFO] default - server listen on port 8443
+[2021-05-15T22:12:23.352] [INFO] default - created date for 8:25
+[2021-05-15T22:12:23.355] [INFO] default - created date for 8:30
+[2021-05-15T22:12:23.356] [INFO] default - created date for 10:15
+[2021-05-15T22:12:23.357] [INFO] default - created date for 10:20
+[2021-05-15T22:12:23.358] [INFO] default - created date for 12:5
+[2021-05-15T22:12:23.359] [INFO] default - created date for 12:10
+[2021-05-15T22:12:23.360] [INFO] default - created date for 14:10
+[2021-05-15T22:12:23.361] [INFO] default - created date for 14:15
+[2021-05-15T22:12:23.362] [INFO] default - created date for 15:55
+[2021-05-15T22:12:23.363] [INFO] default - created date for 16:0
+[2021-05-15T22:12:23.364] [INFO] default - created date for 17:40
+[2021-05-15T22:12:23.366] [INFO] default - created date for 17:45
+[2021-05-15T22:12:28.592] [INFO] default - MongoDB Connected...
+[2021-05-15T22:12:28.594] [INFO] default - server listen on port 8443

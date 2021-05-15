@@ -6,17 +6,18 @@
   "dependencies": {
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
-    "dotenv": "^9.0.2",
-=======
     "cheerio": "^1.0.0-rc.9",
+    "dotenv": "^9.0.2",
     "express": "^4.17.1",
+    "log4js": "^6.3.0",
     "mongoose": "^5.12.9",
     "node-cron": "^3.0.0",
-    "node-telegram-bot-api": "0.53.0",
-    "nodemon": "^2.0.7",
-    "slimbot": "^5.1.0"
+    "node-telegram-bot-api": "0.53.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.0"
+  },
   "scripts": {
     "start": "node index.js",
     "serve": "nodemon index.js"

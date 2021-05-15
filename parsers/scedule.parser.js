@@ -1,6 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const groupController = require('../controllers/group.controller');
+const logger = require('../logger');
 const { parseCouple } = require('./couple.parser');
 
 const daysUaToUs = {
@@ -118,7 +119,7 @@ const parseScedule = async (groupId) => {
 
       return result;
     })
-    .catch((e) => console.log(e));
+    .catch((e) => logger.error(e));
   return scedule;
 };
 
