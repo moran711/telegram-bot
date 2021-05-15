@@ -6,12 +6,13 @@
   "dependencies": {
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
-    "cheerio": "^1.0.0-rc.6",
     "dotenv": "^9.0.2",
+=======
+    "cheerio": "^1.0.0-rc.9",
     "express": "^4.17.1",
-    "mongoose": "^5.12.2",
+    "mongoose": "^5.12.9",
     "node-cron": "^3.0.0",
-    "node-telegram-bot-api": "0.51.0",
+    "node-telegram-bot-api": "0.53.0",
     "nodemon": "^2.0.7",
     "slimbot": "^5.1.0"
   },
