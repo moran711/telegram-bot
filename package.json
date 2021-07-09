@@ -15,7 +15,7 @@
     "node-telegram-bot-api": "0.53.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7",
+    "nodemon": "^2.0.10",
     "prettier": "^2.3.0"
   },
   "scripts": {
