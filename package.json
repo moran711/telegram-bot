@@ -10,7 +10,7 @@
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "log4js": "^6.3.0",
-    "mongoose": "^5.12.9",
+    "mongoose": "^6.6.3",
     "node-cron": "^3.0.0",
     "node-telegram-bot-api": "0.53.0"
   },
